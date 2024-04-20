@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Portal } from "react-native-paper";
+import { Modal } from "react-native-paper";
 import Confirmacion from "./Confirmacion";
 
 export default function Payment(props) {
@@ -36,15 +36,15 @@ export default function Payment(props) {
   };
 
   return (
-    <View className="w-screen min-h-screen  p-6 bg-bg ">
-      <View className="flex-row justify-between py-3">
+    <View className="w-screen min-h-full p-6 bg-bg ">
+      {/* <View className="flex-row justify-between py-3">
         <MaterialIcons
           name="arrow-back-ios"
           color="#fff"
           size={16}
           onPress={togglePayment}
         />
-      </View>
+      </View> */}
 
       <View className="mt-5 mb-10">
         <Text className="text-white font-bold text-3xl">Checkout</Text>
@@ -173,7 +173,15 @@ export default function Payment(props) {
         </View>
       </TouchableOpacity>
 
-      <Portal.Host isVisible={showConfirmacion}>
+      <View className="items-center">
+        <TouchableOpacity>
+          <Text onPress={togglePayment} className="text-lightgray">
+            Cancelar
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <Modal className="absolute z-20 -top-10" visible={showConfirmacion}>
         <Confirmacion
           toggleOverlays={toggleOverlays}
           toggleConfirmacion={toggleConfirmacion}
@@ -184,7 +192,7 @@ export default function Payment(props) {
           ubicacion={ubicacion}
           navigation={navigation}
         />
-      </Portal.Host>
+      </Modal>
     </View>
   );
 }

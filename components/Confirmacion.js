@@ -15,14 +15,14 @@ export default function Confirmacion(props) {
   } = props;
 
   return (
-    <View className="w-screen h-screen bg-bg">
+    <View className="w-screen h-full bg-bg">
       <View className="h-full justify-end pb-6">
         <Image
           blurRadius={20}
           source={{
             uri: image,
           }}
-          className="h-screen absolute w-full opacity-40"
+          className="h-full absolute w-full opacity-40"
         />
         <View className="px-6">
           <Text className="text-white text-4xl font-bold mb-6">¡Gracias!</Text>

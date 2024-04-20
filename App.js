@@ -29,7 +29,7 @@ export default function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-        {user ? (
+        {user === true ? (
           <>
             <Stack.Navigator>
               <Stack.Screen name="Home" component={Home} />

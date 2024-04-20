@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import { Portal } from "react-native-paper";
+import { Modal } from "react-native-paper";
 import Payment from "./Payment";
 
 export default function Checkout(props) {
@@ -22,14 +22,14 @@ export default function Checkout(props) {
     setShowPayment(!showPayment);
   };
   return (
-    <View className="w-screen h-screen bg-bg">
-      <View className="h-full justify-end pb-6">
+    <View className="  w-screen h-full bg-bg">
+      <View className="h-full justify-end ">
         <Image
           blurRadius={20}
           source={{
             uri: image,
           }}
-          className="h-screen absolute w-full opacity-40"
+          className="h-full absolute w-full opacity-40"
         />
         <View className="px-6">
           <Text className="text-white text-4xl font-bold mb-9">{title}</Text>
@@ -105,7 +105,7 @@ export default function Checkout(props) {
           </View>
         </View>
       </View>
-      <Portal.Host isVisible={showPayment}>
+      <Modal className="absolute z-30 -top-5" visible={showPayment}>
         <Payment
           togglePayment={togglePayment}
           image={image}
@@ -120,7 +120,7 @@ export default function Checkout(props) {
           setShowCheckout={setShowCheckout}
           navigation={navigation}
         />
-      </Portal.Host>
+      </Modal>
     </View>
   );
 }

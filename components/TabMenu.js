@@ -35,7 +35,7 @@ function TabMenu(props) {
 
   function goCuenta() {
     setActive("cuenta");
-    navigation.navigate("Cuenta");
+    navigation.navigate("Cuenta", { user, setUser });
   }
   return (
     <View className="flex-row items-center justify-between py-4 px-6 blur-xl rounded-t-3xl bg-gray-600/50">

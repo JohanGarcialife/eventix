@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Avatar, Portal } from "react-native-paper";
+import { Avatar, Modal } from "react-native-paper";
 import Checkout from "../components/Checkout";
 
 function Evento(props) {
@@ -143,7 +143,7 @@ function Evento(props) {
           </View>
         </TouchableOpacity>
       </ScrollView>
-      <Portal.Host isVisible={showCheckout}>
+      <Modal className="absolute z-20 -top-10" visible={showCheckout}>
         <Checkout
           toggleOverlay={toggleOverlay}
           image={image}
@@ -156,7 +156,7 @@ function Evento(props) {
           setShowCheckout={setShowCheckout}
           navigation={navigation}
         />
-      </Portal.Host>
+      </Modal>
     </ScrollView>
   );
 }

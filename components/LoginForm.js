@@ -40,6 +40,7 @@ function LoginForm(props) {
             placeholder="Correo Electrónico"
             placeholderTextColor="#929497"
             onChange={(e) => onChange(e, "email")}
+            className="text-white"
           />
         </View>
         <View className="w-full bg-inkDark rounded-lg p-4">
@@ -48,6 +49,7 @@ function LoginForm(props) {
             placeholderTextColor="#929497"
             secureTextEntry={true}
             onChange={(e) => onChange(e, "password")}
+            className="text-white"
           />
         </View>
       </View>

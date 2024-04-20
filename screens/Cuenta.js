@@ -1,12 +1,15 @@
 import React, { useLayoutEffect, useState } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
-import { Avatar, Portal } from "react-native-paper";
+import { Avatar, Modal } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import EditarPerfil from "../components/EditarPerfil";
 
 function Cuenta(props) {
-  const { navigation } = props;
+  const { navigation, route } = props;
+  const { params } = route;
+  const { user, setUser } = params;
   const [showEditarPerfil, setShowEditarPerfil] = useState(false);
+  console.log(navigation);
 
   const toggleOverlay = () => {
     setShowEditarPerfil(!showEditarPerfil);
@@ -54,18 +57,16 @@ function Cuenta(props) {
         </TouchableOpacity>
       </View>
       <View className="items-center">
-        <TouchableOpacity
-        // onPress={setUser(false)}
-        >
+        <TouchableOpacity onPress={() => setUser(false)}>
           <Text className="text-RedBase mb-4">Cerrar sesión</Text>
         </TouchableOpacity>
         <Text className="text-lightgray mb-4">
           Logueado como: juinalwilliam@mail.com
         </Text>
       </View>
-      <Portal.Host isVisible={showEditarPerfil}>
+      <Modal visible={showEditarPerfil}>
         <EditarPerfil toggleOverlay={toggleOverlay} />
-      </Portal.Host>
+      </Modal>
     </SafeAreaView>
   );
 }
