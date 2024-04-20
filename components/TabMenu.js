@@ -61,7 +61,7 @@ function TabMenu(props) {
       >
         <EvilIcons
           name="search"
-          size={24}
+          size={25}
           color={active === "descubre" ? "#665EE0" : "lightgray"}
         />
         <Text

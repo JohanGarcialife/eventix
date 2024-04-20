@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { Text, View, Image, TextInput, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import SelectDropdown from "react-native-select-dropdown";
 import moment from "moment";
+import { LinearGradient } from "expo-linear-gradient";
 
 function EditarPerfil(props) {
   const { toggleOverlay } = props;
@@ -27,28 +28,42 @@ function EditarPerfil(props) {
     hideDatePicker();
   };
 
-  const sexo = ["Mujer", "Hombre", "Indefinido"];
+  const sexo = [
+    { title: "Mujer" },
+    { title: "Hombre" },
+    { title: "Indefinido" },
+  ];
   return (
     <View className="w-screen h-screen bg-bg ">
-      <View className="flex-row justify-between items-center py-5 mb-3 top-6  left-6 absolute z-50">
-        <MaterialIcons
-          name="arrow-back-ios"
-          color="#fff"
-          size={16}
-          onPress={toggleOverlay}
-        />
+      <View className="flex-row justify-between items-center py-10 mb-3 top-6  left-6 absolute z-50">
+        <TouchableOpacity>
+          <MaterialIcons
+            name="arrow-back-ios"
+            color="#fff"
+            size={16}
+            onPress={toggleOverlay}
+          />
+        </TouchableOpacity>
       </View>
-      <View className=" justify-center items-center py-5 mb-3 top-6  w-full absolute z-10">
+      <View className=" justify-center items-center py-10 mb-3 top-6  w-full absolute z-10">
         <Text className="text-white"> Editar Perfil</Text>
       </View>
-      <Image
-        source={{
-          uri: "https://images.unsplash.com/photo-1560800155-6a1dee6a3d59?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-        }}
-        className="h-96 w-full "
-      />
+      <View>
+        <Image
+          source={{
+            uri: "https://images.unsplash.com/photo-1560800155-6a1dee6a3d59?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+          }}
+          className="h-96 w-full "
+        />
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 0.8 }}
+          colors={["#141414", "transparent"]}
+          className="absolute h-full z-10"
+        />
+      </View>
       <View className="h-fit">
-        <View className="absolute -top-24 py-6 bg-gradient-to-b from-bg to-transparent w-full px-6">
+        <View className="absolute z-20 -top-24 py-6 bg-gradient-to-b from-bg to-transparent w-full px-6">
           <TouchableOpacity>
             <Text className="text-PinkBase text-sm mb-6 text-center">
               Cambiar mi foto
@@ -61,6 +76,7 @@ function EditarPerfil(props) {
                   placeholder="Nombre"
                   placeholderTextColor="#929497"
                   // onChange={(e) => onChange(e, "email")}
+                  className="text-white"
                 />
               </View>
               <View className=" bg-inkDark w-[48%] rounded-lg p-4">
@@ -68,6 +84,7 @@ function EditarPerfil(props) {
                   placeholder="Apellido"
                   placeholderTextColor="#929497"
                   // onChange={(e) => onChange(e, "email")}
+                  className="text-lightgray"
                 />
               </View>
             </View>
@@ -76,6 +93,7 @@ function EditarPerfil(props) {
                 placeholder="Correo"
                 placeholderTextColor="#929497"
                 // onChange={(e) => onChange(e, "email")}
+                className="text-lightgray"
               />
             </View>
             <View className=" bg-inkDark w-full rounded-lg p-4">
@@ -83,6 +101,7 @@ function EditarPerfil(props) {
                 placeholder="Contraseña"
                 placeholderTextColor="#929497"
                 // onChange={(e) => onChange(e, "email")}
+                className="text-lightgray"
               />
             </View>
             <TouchableOpacity>
@@ -117,25 +136,64 @@ function EditarPerfil(props) {
             </TouchableOpacity>
             <View className=" bg-inkDark w-full rounded-lg ">
               <SelectDropdown
-                defaultButtonText="Selecciona tu sexo"
                 data={sexo}
-                buttonStyle={styles.dropdown1BtnStyle}
-                buttonTextStyle={styles.dropdown1BtnTxtStyle}
                 onSelect={(selectedItem, index) => {
                   console.log(selectedItem, index);
                 }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  // text represented after item is selected
-                  // if data array is an array of objects then return selectedItem.property to render after item is selected
-                  return selectedItem;
+                renderButton={(selectedItem, isOpened) => {
+                  return (
+                    <View style={styles.dropdownButtonStyle}>
+                      {selectedItem && (
+                        <Octicons
+                          name={selectedItem.icon}
+                          style={styles.dropdownButtonIconStyle}
+                          color="#fff"
+                        />
+                      )}
+                      <Text style={styles.dropdownButtonTxtStyle}>
+                        {(selectedItem && selectedItem.title) ||
+                          "Selecciona tu sexo"}
+                      </Text>
+                      <Octicons
+                        name={isOpened ? "chevron-up" : "chevron-down"}
+                        style={styles.dropdownButtonArrowStyle}
+                        color="#fff"
+                      />
+                    </View>
+                  );
                 }}
-                rowTextForSelection={(item, index) => {
-                  // text represented for each item in dropdown
-                  // if data array is an array of objects then return item.property to represent item in dropdown
-                  return item;
+                renderItem={(item, index, isSelected) => {
+                  return (
+                    <View
+                      style={{
+                        ...styles.dropdownItemStyle,
+                        ...(isSelected && { backgroundColor: "#665EE0" }),
+                      }}
+                    >
+                      <Text style={styles.dropdownItemTxtStyle}>
+                        {item.title}
+                      </Text>
+                    </View>
+                  );
                 }}
+                showsVerticalScrollIndicator={false}
+                dropdownStyle={styles.dropdownMenuStyle}
               />
             </View>
+
+            <TouchableOpacity>
+              <View
+                //onPress={togglePayment}
+                className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mb-4"
+              >
+                <Text
+                  // onPress={togglePayment}
+                  className="text-white"
+                >
+                  Guardar
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -144,18 +202,51 @@ function EditarPerfil(props) {
 }
 
 const styles = StyleSheet.create({
-  dropdown1BtnStyle: {
+  dropdownButtonStyle: {
     width: "100%",
     height: 50,
     backgroundColor: "#1F1F1F",
+    borderRadius: 12,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 12,
   },
-  dropdown1BtnTxtStyle: { color: "#929497", textAlign: "left", fontSize: 14 },
-  dropdown1DropdownStyle: { backgroundColor: "#1F1F1F" },
-  dropdown1RowStyle: {
+  dropdownButtonTxtStyle: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#929497",
+  },
+  dropdownButtonArrowStyle: {
+    fontSize: 25,
+  },
+  dropdownButtonIconStyle: {
+    fontSize: 25,
+    marginRight: 8,
+  },
+  dropdownMenuStyle: {
     backgroundColor: "#1F1F1F",
-    borderBottomColor: "#C5C5C5",
+    borderRadius: 8,
   },
-  dropdown1RowTxtStyle: { color: "#1F1F1F", textAlign: "left" },
+  dropdownItemStyle: {
+    width: "100%",
+    flexDirection: "row",
+    paddingHorizontal: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 8,
+  },
+  dropdownItemTxtStyle: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#929497",
+  },
+  dropdownItemIconStyle: {
+    fontSize: 28,
+    marginRight: 8,
+  },
 });
 
 export default EditarPerfil;
