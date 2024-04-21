@@ -9,8 +9,7 @@ import {
 } from "@expo/vector-icons";
 
 function TabMenu(props) {
-  const { user, setUser } = props;
-  const [active, setActive] = useState("home");
+  const { user, setUser, active, setActive } = props;
 
   const navigation = useNavigation();
 
@@ -31,6 +30,7 @@ function TabMenu(props) {
 
   function goFavoritos() {
     setActive("favoritos");
+    navigation.navigate("Favoritos");
   }
 
   function goCuenta() {
@@ -61,7 +61,7 @@ function TabMenu(props) {
       >
         <EvilIcons
           name="search"
-          size={25}
+          size={30}
           color={active === "descubre" ? "#665EE0" : "lightgray"}
         />
         <Text
@@ -90,7 +90,7 @@ function TabMenu(props) {
               : "text-lightgray text-xs"
           }
         >
-          Ticket
+          Tickets
         </Text>
       </TouchableOpacity>
       <TouchableOpacity

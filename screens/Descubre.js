@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView, Text } from "react-native";
 import Grid from "../components/Grid";
@@ -85,6 +85,7 @@ const eventos = [
 ];
 
 function Descubre() {
+  const [filtro, setFiltro] = useState("hoy");
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -105,23 +106,47 @@ function Descubre() {
         </View>
         <View className="mt-6">
           <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-            <TouchableOpacity>
-              <View className="px-7 py-3 mx-1 rounded-[32px] bg-PrimaryBase">
+            <TouchableOpacity onPress={() => setFiltro("hoy")}>
+              <View
+                className={
+                  filtro === "hoy"
+                    ? "px-7 py-3 mx-1 rounded-[32px] bg-PrimaryBase"
+                    : "px-7 py-3 mx-1 rounded-[32px] border border-[#282828]"
+                }
+              >
                 <Text className="text-white">Hoy</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <View className="px-7 py-3 mx-1 rounded-[32px] border border-[#282828]">
+            <TouchableOpacity onPress={() => setFiltro("mañana")}>
+              <View
+                className={
+                  filtro === "mañana"
+                    ? "px-7 py-3 mx-1 rounded-[32px] bg-PrimaryBase"
+                    : "px-7 py-3 mx-1 rounded-[32px] border border-[#282828]"
+                }
+              >
                 <Text className="text-white">Mañana</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <View className="px-7 py-3 mx-1 rounded-[32px] border border-[#282828]">
+            <TouchableOpacity onPress={() => setFiltro("semana")}>
+              <View
+                className={
+                  filtro === "semana"
+                    ? "px-7 py-3 mx-1 rounded-[32px] bg-PrimaryBase"
+                    : "px-7 py-3 mx-1 rounded-[32px] border border-[#282828]"
+                }
+              >
                 <Text className="text-white">Esta semana</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <View className="px-7 py-3 mx-1 rounded-[32px] border border-[#282828]">
+            <TouchableOpacity onPress={() => setFiltro("mes")}>
+              <View
+                className={
+                  filtro === "mes"
+                    ? "px-7 py-3 mx-1 rounded-[32px] bg-PrimaryBase"
+                    : "px-7 py-3 mx-1 rounded-[32px] border border-[#282828]"
+                }
+              >
                 <Text className="text-white">Este mes</Text>
               </View>
             </TouchableOpacity>

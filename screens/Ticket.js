@@ -1,17 +1,11 @@
 import React, { useLayoutEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-} from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function Ticket() {
+export default function Ticket(props) {
+  const { active, setActive } = props;
   const navigation = useNavigation();
   const { params } = useRoute();
   const { title, fecha, image, precio, ubicacion } = params;
@@ -21,6 +15,12 @@ export default function Ticket() {
       headerShown: false,
     });
   }, []);
+
+  const goTickets = () => {
+    setActive("tickets");
+    navigation.navigate("Tickets");
+  };
+
   return (
     <SafeAreaView className="h-full bg-bg p-6">
       <View className="flex-row mb-8 justify-between items-center">
@@ -46,42 +46,6 @@ export default function Ticket() {
           </View>
         </TouchableOpacity>
       </View>
-      {/* <ImageBackground
-        source={require("../assets/Ticket.png")}
-        resizeMode="contain"
-        className="w-full"
-      >
-        <View className="h-56 p-6">
-          <Text className="text-black mb-4 text-lg font-bold">{title} </Text>
-          <View className="flex-row  justify-between mb-6">
-            <View className="space-y-1 w-1/2 pr-3">
-              <Text className="text-black  text-xs ">FECHA </Text>
-              <Text className="text-black  text-sm font-bold">{fecha} </Text>
-            </View>
-            <View className="space-y-1 w-1/2 pl-3">
-              <Text className="text-black  text-xs ">UBICACIÓN </Text>
-              <Text className="text-black  text-sm font-bold">
-                {ubicacion}{" "}
-              </Text>
-            </View>
-          </View>
-          <View className="space-y-1 ">
-            <Text className="text-black  text-xs ">NOMBRE </Text>
-            <Text className="text-black  text-sm font-bold">
-              Juinal William
-            </Text>
-          </View>
-        </View>
-      </ImageBackground>
-      <ImageBackground
-        source={require("../assets/Ticket-bottom.png")}
-        resizeMode="contain"
-        className="w-full"
-      >
-        <View className="h-36 p-6">
-          <Text className="text-black text-lg font-bold"> </Text>
-        </View>
-      </ImageBackground> */}
 
       <LinearGradient
         start={{ x: 0, y: 0 }}
@@ -122,10 +86,14 @@ export default function Ticket() {
         colors={["#F2BC96", "#A287F8"]}
         className="rounded-b-2xl "
       >
-        <View className="h-36 p-6">
-          <Text className="text-black text-lg font-bold"> </Text>
-        </View>
+        <View className="h-36 p-6"></View>
       </LinearGradient>
+
+      <TouchableOpacity onPress={() => goTickets()} className="mt-5">
+        <View className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mb-4">
+          <Text className="text-white">Ver mis tickets</Text>
+        </View>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

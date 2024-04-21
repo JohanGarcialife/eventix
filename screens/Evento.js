@@ -1,8 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Avatar, Modal } from "react-native-paper";
-import Checkout from "../components/Checkout";
+import { Avatar } from "react-native-paper";
 
 function Evento(props) {
   const { navigation, route } = props;
@@ -10,17 +9,26 @@ function Evento(props) {
   const { id, title, avatar, fecha, image, precio, organizador, ubicacion } =
     params;
   const [isFavorite, setIsFavorite] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
-
-  const toggleOverlay = () => {
-    setShowCheckout(!showCheckout);
-  };
+  const [active, setActive] = useState(null);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+
+  const dates = [
+    { id: 1, day: "Sab", hora: "7:00 PM", fecha: "Jun 4" },
+    { id: 2, day: "Dom", hora: "7:00 PM", fecha: "Jun 5" },
+    { id: 3, day: "Lun", hora: "7:00 PM", fecha: "Jun 6" },
+    { id: 4, day: "Mar", hora: "7:00 PM", fecha: "Jun 7" },
+    { id: 5, day: "Mie", hora: "7:00 PM", fecha: "Jun 8" },
+    { id: 6, day: "Jue", hora: "7:00 PM", fecha: "Jun 9" },
+    { id: 7, day: "Vie", hora: "7:00 PM", fecha: "Jun 10" },
+    { id: 8, day: "Sab", hora: "7:00 PM", fecha: "Jun 11" },
+    { id: 9, day: "Dom", hora: "7:00 PM", fecha: "Jun 12" },
+  ];
+
   return (
     <ScrollView className="h-full bg-bg">
       <View className="flex-row justify-between items-center py-5 mb-3 top-6  left-6 absolute z-10">
@@ -95,33 +103,24 @@ function Evento(props) {
             </View>
           </TouchableOpacity>
         </View>
-
         <Text className="text-sm text-lightgray mb-4">Fecha y hora</Text>
         <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-          <View className="bg-PrimaryBase py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-white">Sab - 7:00 PM</Text>
-            <Text className="text-xs text-white">Jun 4</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Dom - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 5</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Lun - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 6</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Mar - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 7</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Mie - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 8</Text>
-          </View>
-          <View className="border border-lightgray py-2 px-3 justify-center items-center rounded mr-2">
-            <Text className="text-xs text-lightgray">Jue - 7:00 PM</Text>
-            <Text className="text-xs text-lightgray">Jun 9</Text>
-          </View>
+          {dates?.map((date) => (
+            <TouchableOpacity key={date.id} onPress={() => setActive(date.id)}>
+              <View
+                className={
+                  active === date.id
+                    ? "bg-PrimaryBase py-2 px-3 justify-center items-center rounded mr-2"
+                    : "border border-lightgray py-2 px-3 justify-center items-center rounded mr-2"
+                }
+              >
+                <Text className="text-xs text-white">
+                  {date.day} - {date.hora}{" "}
+                </Text>
+                <Text className="text-xs text-white">{date.fecha} </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
         <Text className="text-sm text-lightgray mt-9 mb-3">Acerca de</Text>
         <Text className="text-sm text-white text-justify">
@@ -129,34 +128,23 @@ function Evento(props) {
           to get ahead. Content marketing attracts new business by engaging your
           ideal customer with consistently.
         </Text>
-        <TouchableOpacity>
-          <View
-            onPress={toggleOverlay}
-            className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mt-9"
-          >
-            <Text onPress={toggleOverlay} className="text-white">
-              {precio}{" "}
-            </Text>
-            <Text onPress={toggleOverlay} className="text-white">
-              · Añadir
-            </Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Checkout", {
+              title,
+              fecha,
+              image,
+              precio,
+              ubicacion,
+            })
+          }
+        >
+          <View className="bg-PrimaryBase flex-row items-center justify-center py-4 w-full rounded-[48px] mt-9">
+            <Text className="text-white">{precio} </Text>
+            <Text className="text-white">· Añadir</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>
-      <Modal className="absolute z-20 -top-10" visible={showCheckout}>
-        <Checkout
-          toggleOverlay={toggleOverlay}
-          image={image}
-          title={title}
-          precio={precio}
-          fecha={fecha}
-          organizador={organizador}
-          ubicacion={ubicacion}
-          showCheckout={showCheckout}
-          setShowCheckout={setShowCheckout}
-          navigation={navigation}
-        />
-      </Modal>
     </ScrollView>
   );
 }
