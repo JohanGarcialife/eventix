@@ -17,6 +17,8 @@ import Favoritos from "./screens/Favoritos";
 import Checkout from "./screens/Checkout";
 import Payment from "./screens/Payment";
 import Confirmacion from "./screens/Confirmacion";
+import Siguiendo from "./screens/Siguiendo";
+import Ayuda from "./screens/Ayuda";
 import TabMenu from "./components/TabMenu";
 
 const Stack = createStackNavigator();
@@ -43,10 +45,7 @@ export default function App() {
               <Stack.Screen name="Evento" component={Evento} />
               <Stack.Screen name="Descubre" component={Descubre} />
               <Stack.Screen name="Cuenta" component={Cuenta} />
-              <Stack.Screen
-                name="Ticket"
-                //component={Ticket}
-              >
+              <Stack.Screen name="Ticket">
                 {(props) => <Ticket active={active} setActive={setActive} />}
               </Stack.Screen>
               <Stack.Screen name="Tickets" component={Tickets} />
@@ -54,6 +53,8 @@ export default function App() {
               <Stack.Screen name="Checkout" component={Checkout} />
               <Stack.Screen name="Payment" component={Payment} />
               <Stack.Screen name="Confirmacion" component={Confirmacion} />
+              <Stack.Screen name="Siguiendo" component={Siguiendo} />
+              <Stack.Screen name="Ayuda" component={Ayuda} />
             </Stack.Navigator>
             <View className="bg-bg">
               <TabMenu

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Modal } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import EditarPerfil from "../components/EditarPerfil";
 
 function Cuenta(props) {
@@ -9,7 +9,6 @@ function Cuenta(props) {
   const { params } = route;
   const { user, setUser } = params;
   const [showEditarPerfil, setShowEditarPerfil] = useState(false);
-  console.log(navigation);
 
   const toggleOverlay = () => {
     setShowEditarPerfil(!showEditarPerfil);
@@ -37,22 +36,23 @@ function Cuenta(props) {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Siguiendo")}>
           <View className="flex-row justify-between items-center py-4">
             <Text className="text-white text-lg">Siguiendo</Text>
-            <Ionicons name="person-add" color="#fff" size={18} />
+
+            <MaterialIcons name="person-add-alt" size={18} color="white" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Ayuda")}>
           <View className="flex-row justify-between items-center py-4">
             <Text className="text-white text-lg">Ayuda</Text>
-            <Ionicons name="help-outline" color="#fff" size={18} />
+            <AntDesign name="questioncircleo" size={18} color="white" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
           <View className="flex-row justify-between items-center py-4">
             <Text className="text-white text-lg">Configuración</Text>
-            <Ionicons name="settings" color="#fff" size={18} />
+            <Ionicons name="settings-outline" color="#fff" size={18} />
           </View>
         </TouchableOpacity>
       </View>
