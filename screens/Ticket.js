@@ -20,7 +20,7 @@ export default function Ticket(props) {
     setActive("tickets");
     navigation.navigate("Tickets");
   };
-
+ 
   return (
     <SafeAreaView className="h-full bg-bg p-6">
       <View className="flex-row mb-8 justify-between items-center">

@@ -68,7 +68,7 @@ export default function Confirmacion(props) {
           <View className="items-center">
             <TouchableOpacity>
               <Text
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate("Home")}
                 className="text-lightgray"
               >
                 Cerrar
